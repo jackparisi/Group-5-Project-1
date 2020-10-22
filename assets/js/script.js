@@ -6,8 +6,8 @@ var APIParkKey = "IeMPkZS36TxiVcv1TUIT5yzANx6szGLJE5BsDsZA";
 var imperialUnit = "&units=imperial";
 
 // Created global variables to store user input.
-var inputCity = "";
-var inputStateCode = "";
+var inputCity = "Orlando";
+var inputStateCode = "FL";
 
 // Check with team
 var parkLimitResult = "&limit=10"; 
@@ -33,7 +33,7 @@ var parkEventsURL = "https://developer.nps.gov/api/v1/events?api_key=" + APIPark
 var parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey + "&q" + inputStateCode;
 
 // URL to take 5 days forecast, need to discuss about taking city and state
-var fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIKey + imperialUnit + "&q" + inputCity + "," + inputStateCode;
+var fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIWeatherKey + imperialUnit + "&q" + inputCity + "," + inputStateCode;
 
 // AJAX call for parks
 $.ajax({
