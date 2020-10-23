@@ -73,6 +73,16 @@ $.ajax({
     method: "GET"
 }).then(function(toDoRes){
     console.log(toDoRes);
+    var activities = toDoRes.data;
+    console.log(toDoRes.data[1].name);
+    var actList = $("<ul class='list'>");
+    $("#right").append(actList);
+    for(var i=0; i < activities.length; i++){
+        console.log(activities[i].name);
+        var listItem = $("<li>");
+        listItem.append(activities[i].name);
+        actList.append(listItem);
+    }
 })
 
 // AJAX call to 5 days forecast
