@@ -1,122 +1,190 @@
-// Created global variables for the API keys that will be used in different AJAX calls.
-var APIWeatherKey = "b37332257de420fc6dfcda2bbba28fbd";
-var APIParkKey = "IeMPkZS36TxiVcv1TUIT5yzANx6szGLJE5BsDsZA";
+// Document ready function to ensure functions just run after everything is loaded in the document.
+$(document).ready(function(){
 
-// Created a variable to change the API response units of measurement.
-var imperialUnit = "&units=imperial";
+    // Created global variables for the API keys that will be used in different AJAX calls.
+    var APIWeatherKey = "b37332257de420fc6dfcda2bbba28fbd";
+    var APIParkKey = "IeMPkZS36TxiVcv1TUIT5yzANx6szGLJE5BsDsZA";
 
-// Created global variables to store user input.
-var inputCity = "Orlando";
-var inputStateCode = "FL";
+    // Created global variable to store user state input.
+    var inputStateCode = "FL";
 
-// Check with team
-var parkLimitResult = "&limit=10"; 
+    // Global variable to save the city where the park is located, captured on address function, inside AJAX call for parks.
+    var parkCity = "";
 
-// Check with team
-var parkSelected = "";
+    // // Check with team
+    // var parkLimitResult = ""; 
 
-// park queries field: parkCode, stateCode, limit(results up to 50), start(get the next limit result), q (a string to search for), sort (A comma delimited list of fields to sort the results by)
-var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + parkLimitResult + "&q" + inputStateCode;
+    // Global variable to hold park code.
+    var parkCode = "";
 
-// park alerts queries field: parkCode, stateCode, limit, start, q
-var parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey + parkLimitResult + "&q" + inputStateCode;
+    // park queries field: parkCode, stateCode, limit(results up to 50), start(get the next limit result), q (a string to search for), sort (A comma delimited list of fields to sort the results by)
+    var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + inputStateCode;
 
-// park campgrounds queries field: parkCode, stateCode, limit, start, q
-var parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey + parkLimitResult + "&q" + inputStateCode;
+    // Global variable to hold park alerts URL to be used in the event listener for the park button.
+    var parkAlertsURL = "";
 
-// park events queries field: parkCode, organization, subject, portal, tagsAll, tagsOne, tagsNone, stateCode, dateStart, dateEnd, eventTyoe, id (ent id), q, pageSize, pageNumber, expandRecurring
-var parkEventsURL = "https://developer.nps.gov/api/v1/events?api_key=" + APIParkKey + "&q" + inputStateCode;
+    // Global variable to hold park campground URL to be used in the event listener for the park button.
+    var parkCampURL = "";
 
-//no infor for plants and wildlife
+    // Global variable to hold park events URL to be used in the event listener for the park button.
+    var parkEventsURL = "";
 
-// to be considered, park to do queries field: id (things to do id), parkCode, stateCode, limit, start, q, sort
-var parkThingsToDoURL = "https://developer.nps.gov/api/v1/activities?api_key=" + APIParkKey + "&q" + inputStateCode;
+    // Global variable to hold park things to do URL to be used in the event listener for the park button.
+    var parkThingsToDoURL = "";
 
-// URL to take 5 days forecast, need to discuss about taking city and state
-var fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=Orlando" + "&appid=" + APIWeatherKey + "&units=imperial";
+    // Global variable to hold 5-day forecast URL to be used in the event listener for the park button.
+    var fiveDayWeatherURL = "";
 
-// AJAX call for parks
-$.ajax({
-    url: parkURL,
-    method: "GET"
-}).then(function(parkRes){
-    console.log(parkRes);
-})
+    
 
-// AJAX call for park alerts
-$.ajax({
-    url: parkAlertsURL,
-    method: "GET"
-}).then(function(alertRes){
-    console.log(alertRes);
-})
+    // AJAX call for parks
+    $.ajax({
+        url: parkURL,
+        method: "GET"
+    }).then(function(parkRes){
+        console.log(parkRes);
+        
+        var stateParkDiv = $("<div class='statePark'>");
 
-// AJAX call for park campgrounds
-$.ajax({
-    url: parkCampURL,
-    method: "GET"
-}).then(function(campRes){
-    console.log(campRes);
-})
+        $("#left").append(stateParkDiv);
+        
+        
+        parkRes.data.forEach(function(data){
+            createParkBtn();
+            
+                        
+            function createParkBtn(){
+            
+            // Create a button with the name of each park returned in the response
+            var newParkBtn = $("<button>").text(data.name);
 
-// AJAX call for park event
-$.ajax({
-    url: parkEventsURL,
-    method: "GET"
-}).then(function(eventRes){
-    console.log(eventRes);
-})
+            // Add a data-name attribute with each park name.
+            newParkBtn.attr("data-name", data.parkCode);
 
-// AJAX call for park to do
-$.ajax({
-    url: parkThingsToDoURL,
-    method: "GET"
-}).then(function(toDoRes){
-    console.log(toDoRes);
-    var activities = toDoRes.data;
-    console.log(toDoRes.data[1].name);
-    var actList = $("<ul class='list'>");
-    $("#right").append(actList);
-    for(var i=0; i < activities.length; i++){
-        console.log(activities[i].name);
-        var listItem = $("<li>");
-        listItem.append(activities[i].name);
-        actList.append(listItem);
+            // Add class to the button.
+            newParkBtn.addClass("parkBtn");
+
+            data.addresses.forEach(function(address){
+                // console.log(address.city);
+                newParkBtn.attr("value", address.city);                
+                })
+
+            // Append the button to section id left (we can change it later).
+            $(".statePark").append(newParkBtn);
+
+            }            
+            
+        })
+            
+        
+        
+    })
+
+    // AJAX call for park alerts
+    $.ajax({
+        url: parkAlertsURL,
+        method: "GET"
+    }).then(function(alertRes){
+        console.log(alertRes);
+    })
+
+    // AJAX call for park campgrounds
+    $.ajax({
+        url: parkCampURL,
+        method: "GET"
+    }).then(function(campRes){
+        console.log(campRes);
+    })
+
+    // AJAX call for park event
+    $.ajax({
+        url: parkEventsURL,
+        method: "GET"
+    }).then(function(eventRes){
+        console.log(eventRes);
+    })
+
+    function thingsTodo(){
+    // AJAX call for park to do
+        $.ajax({
+            url: parkThingsToDoURL,
+            method: "GET"
+        }).then(function(toDoRes){
+            console.log(toDoRes);
+            var activities = toDoRes.data;
+            // console.log(toDoRes.data);
+            var toDoDiv = $("<div class='toDo'>");
+            $("#right").append(toDoDiv);
+            var actList = $("<ul class='list'>");
+            $(".toDo").empty().append(actList);
+            for(var i=0; i < activities.length; i++){
+                console.log(activities[i].activities[0].name + activities[i].title);
+                var listItem = $("<li>").text(activities[i].activities[0].name + " - " + activities[i].title);
+                actList.append(listItem);
+            }
+        })
     }
-})
 
-// AJAX call to 5 days forecast
-$.ajax({
-    url: fiveDayWeatherURL,
-    method: "GET"
-}).then(function(fiveDayRes){
-    console.log(fiveDayRes);
+    // Event listener to the button created inside the parkRes.data.forEach loop.
+    $(document).on("click", ".parkBtn", function (event){
+        event.preventDefault();
 
-    // Variable to hold the forecast array
-    var forecastArray = fiveDayRes.list
+        // Updates parkCode accordingly with the button clicked.
+        parkCode = $(this).attr("data-name");
+        console.log(parkCode);
+        parkCity = $(this).val();
+        console.log(parkCity);
 
-    // For loop to take the one day out of forecast array
-    for (var i=0; i < forecastArray.length; i+=8){
+        fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
+        forecast();
 
-        // variable to hold date and format to javaScript
-        var date = new Date (forecastArray[i].dt_txt);
-        console.log(date);
+        parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        thingsTodo();
 
-        // variable to hold icon name
-        var icon = forecastArray[i].weather[0].icon;
-        console.log(icon);
+        parkEventsURL = "https://developer.nps.gov/api/v1/events?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
 
-        // variable to hold min temperature
-        var minTemp = forecastArray[i].main.temp_min;
-        console.log(minTemp);
+        parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
 
-        // variable to hold max temperature
-        var maxTemp = forecastArray[i].main.temp_max;
-        console.log(maxTemp);
+        parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
 
-        // variable to hold humidity
-        var humidity = forecastArray[i].main.humidity;
-        console.log(humidity);
+    })
 
+    function forecast(){
+        // AJAX call to 5 days forecast
+        $.ajax({
+            url: fiveDayWeatherURL,
+            method: "GET"
+        }).then(function(fiveDayRes){
+            // console.log(fiveDayRes);
+
+            // Variable to hold the forecast array
+            var forecastArray = fiveDayRes.list
+
+            // For loop to take the one day out of forecast array
+            for (var i=0; i < forecastArray.length; i+=8){
+
+                // variable to hold date and format to javaScript
+                var date = new Date (forecastArray[i].dt_txt);
+                console.log(date);
+
+                // variable to hold icon name
+                var icon = forecastArray[i].weather[0].icon;
+                console.log(icon);
+
+                // variable to hold min temperature
+                var minTemp = forecastArray[i].main.temp_min;
+                console.log(minTemp);
+
+                // variable to hold max temperature
+                var maxTemp = forecastArray[i].main.temp_max;
+                console.log(maxTemp);
+
+                // variable to hold humidity
+                var humidity = forecastArray[i].main.humidity;
+                console.log(humidity);
+
+            }
+        })
     }
+
 })
