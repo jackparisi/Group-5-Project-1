@@ -30,10 +30,10 @@ var parkEventsURL = "https://developer.nps.gov/api/v1/events?api_key=" + APIPark
 //no infor for plants and wildlife
 
 // to be considered, park to do queries field: id (things to do id), parkCode, stateCode, limit, start, q, sort
-var parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey + "&q" + inputStateCode;
+var parkThingsToDoURL = "https://developer.nps.gov/api/v1/activities?api_key=" + APIParkKey + "&q" + inputStateCode;
 
 // URL to take 5 days forecast, need to discuss about taking city and state
-var fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?appid=" + APIWeatherKey + imperialUnit + "&q" + inputCity + "," + inputStateCode;
+var fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?q=Orlando" + "&appid=" + APIWeatherKey + "&units=imperial";
 
 // AJAX call for parks
 $.ajax({
