@@ -6,8 +6,13 @@ $(document).ready(function(){
     var APIParkKey = "IeMPkZS36TxiVcv1TUIT5yzANx6szGLJE5BsDsZA";
 
     // Created global variable to store user state input.
-    var inputStateCode = "FL";
-
+    var inputStateCode = "";
+    $("#stateCode").on("change", function(){
+        var state = $(this).val();
+        console.log(state);
+        inputStateCode = state;
+        getParks(state);
+    })
     // Global variable to save the city where the park is located, captured on address function, inside AJAX call for parks.
     var parkCity = "";
 
@@ -18,7 +23,7 @@ $(document).ready(function(){
     var parkCode = "";
 
     // park queries field: parkCode, stateCode, limit(results up to 50), start(get the next limit result), q (a string to search for), sort (A comma delimited list of fields to sort the results by)
-    var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + inputStateCode;
+    //var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + inputStateCode;
 
     // Global variable to hold park alerts URL to be used in the event listener for the park button.
     var parkAlertsURL = "";
@@ -36,8 +41,11 @@ $(document).ready(function(){
     var fiveDayWeatherURL = "";
 
     
-
+    function getParks(state){
     // AJAX call for parks
+    // park queries field: parkCode, stateCode, limit(results up to 50), start(get the next limit result), q (a string to search for), sort (A comma delimited list of fields to sort the results by)
+    var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + state;
+
     $.ajax({
         url: parkURL,
         method: "GET"
@@ -48,12 +56,9 @@ $(document).ready(function(){
 
         $("#left").append(stateParkDiv);
         
-        
+        $(".statePark").empty();
         parkRes.data.forEach(function(data){
-            createParkBtn();
-            
-                        
-            function createParkBtn(){
+          
             
             // Create a button with the name of each park returned in the response
             var newParkBtn = $("<button>").text(data.name);
@@ -72,11 +77,12 @@ $(document).ready(function(){
             // Append the button to section id left (we can change it later).
             $(".statePark").append(newParkBtn);
 
-            }            
+                        
             
         })
         
-    })
+    })}
+
     
     function parkAlerts(){
     // AJAX call for park alerts
