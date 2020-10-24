@@ -5,17 +5,19 @@
   }
   body {
     font-size: 20px;
+    background-color: lightblue;
+    font-style: Trebuchet;
   }
   header{
     padding: 20px;
     margin-bottom: 20px;
-    background: rgb(201, 204, 37);
+    background: lightblue;
     
   }
 #left {
   text-align: center;
   float: left;
-  background-color: rgb(107, 204, 95);
+  background-color: rgb(103, 204, 238);
   width: 25%;
   height:600px;
   /* box-shadow: 10px 10px 5px grey; */
@@ -28,7 +30,7 @@
   text-align: center;
   float: left;
   font-size: 35px;
-  background-color: rgb(106, 129, 103);
+  background-color: rgb(14, 125, 158);
   width: 50%;
   height: 600px;
   overflow: auto;
@@ -37,7 +39,7 @@
   padding: 2%;
 }
 aside {
-    background-color: rgb(55, 140, 40);
+    background-color:rgb(103, 204, 238);
     width: 25%;
     border: 2px;
     float: right;
@@ -60,7 +62,7 @@ aside {
   text-align: center; 
   float: right;
   display: block;
-  background-color: rgb(58, 201, 29);
+  background-color: rgb(103, 204, 238);
   width:25%;
   height:600px;
   /* box-shadow: 10px 10px 5px grey; */
@@ -70,7 +72,7 @@ aside {
   
 }
 footer {
-  background-color:rgb(67, 128, 189);
+  background-color:lightblue;
   padding: 5%;
   margin: 5px;
   clear: both;
