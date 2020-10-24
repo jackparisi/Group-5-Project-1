@@ -6,6 +6,7 @@ $(document).ready(function(){
     var APIParkKey = "IeMPkZS36TxiVcv1TUIT5yzANx6szGLJE5BsDsZA";
 
     // Created global variable to store user state input.
+
     var inputStateCode = "";
     $("#stateCode").on("change", function(){
         var state = $(this).val();
@@ -13,11 +14,9 @@ $(document).ready(function(){
         inputStateCode = state;
         getParks(state);
     })
+
     // Global variable to save the city where the park is located, captured on address function, inside AJAX call for parks.
     var parkCity = "";
-
-    // // Check with team
-    // var parkLimitResult = ""; 
 
     // Global variable to hold park code.
     var parkCode = "";
@@ -100,7 +99,7 @@ $(document).ready(function(){
             newAlertDiv.append(newAlertH3);
 
             // Empty the section with id park-names and append the new div. 
-            $("#park-names").empty().append(newAlertDiv);
+            $("#middle").append(newAlertDiv);
 
             alertRes.data.forEach(function(alert){
                 // Create new h4, p, and if there is an url it also creates a "a" tag.
@@ -210,28 +209,44 @@ $(document).ready(function(){
             // Variable to hold the forecast array
             var forecastArray = fiveDayRes.list
 
+            var newDayH3 = $("<h3>").text("5-Day Forecast");
+
+            var newCardDeck = $("<div class='card-deck'>");
+
+            $("#forecast-weather").empty().append(newDayH3, newCardDeck);
+
             // For loop to take the one day out of forecast array
             for (var i=0; i < forecastArray.length; i+=8){
 
+                var newDivCardBody = $("<div class='card-body'>");
+
                 // variable to hold date and format to javaScript
                 var date = new Date (forecastArray[i].dt_txt);
-                console.log(date);
+                // console.log(date);
+                var displayDate = $("<p>").text(date.getMonth()+1 + "-" + date.getDate() + "-" + date.getFullYear());
 
                 // variable to hold icon name
                 var icon = forecastArray[i].weather[0].icon;
-                console.log(icon);
+                // console.log(icon);
+
+                // Create a new img tag, and add an attribute with the image address along with the icon name held in the forDayIcon variable.
+                var imgDayIcon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + icon + ".png");           
 
                 // variable to hold min temperature
-                var minTemp = forecastArray[i].main.temp_min;
-                console.log(minTemp);
+                var minTemp = $("<p>").text("Temperature: " + forecastArray[i].main.temp_min + " ℉");
+                // console.log(minTemp);
 
                 // variable to hold max temperature
-                var maxTemp = forecastArray[i].main.temp_max;
-                console.log(maxTemp);
+                var maxTemp = $("<p>").text("Temperature: " + forecastArray[i].main.temp_max + " ℉");;
+                // console.log(maxTemp);
 
                 // variable to hold humidity
-                var humidity = forecastArray[i].main.humidity;
-                console.log(humidity);
+                var humidity = $("<p>").text("Humidity: " + forecastArray[i].main.humidity + "%");
+                // console.log(humidity);
+
+                newDivCardBody.append(displayDate, imgDayIcon, minTemp, maxTemp, humidity);
+
+                newCardDeck.append(newDivCardBody);
 
             }
         })
