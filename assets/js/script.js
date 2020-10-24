@@ -75,34 +75,75 @@ $(document).ready(function(){
             }            
             
         })
-            
-        
         
     })
-
+    
+    function parkAlerts(){
     // AJAX call for park alerts
-    $.ajax({
-        url: parkAlertsURL,
-        method: "GET"
-    }).then(function(alertRes){
-        console.log(alertRes);
-    })
+        $.ajax({
+            url: parkAlertsURL,
+            method: "GET"
+        }).then(function(alertRes){
+            console.log(alertRes);
 
+            // Created new div and h3
+            var newAlertDiv = $("<div class='alert'>");
+            var newAlertH3 = $("<h3>").text("Park Alerts");
+
+            // Append the new h3 to the new div
+            newAlertDiv.append(newAlertH3);
+
+            // Empty the section with id park-names and append the new div. 
+            $("#park-names").empty().append(newAlertDiv);
+
+            alertRes.data.forEach(function(alert){
+                // Create new h4, p, and if there is an url it also creates a "a" tag.
+                var newAlertH4 = $("<h4>").text(alert.title);
+                var newAlertP = $("<p>").text(alert.description);
+                if (alert.url !== ""){var newAlertA = $("<a>").attr("href", alert.url).text(alert.title);}
+                // Append the new tags to the new div.
+                newAlertDiv.append(newAlertH4, newAlertP, newAlertA);  
+            })
+        })
+    }
+
+    function parkCamp(){
     // AJAX call for park campgrounds
-    $.ajax({
-        url: parkCampURL,
-        method: "GET"
-    }).then(function(campRes){
-        console.log(campRes);
-    })
+        $.ajax({
+            url: parkCampURL,
+            method: "GET"
+        }).then(function(campRes){
+            console.log(campRes);
+            // Created new div and h3
+            var newCampDiv = $("<div class='camp'>");
+            var newCampH3 = $("<h3>").text("Campgrounds");
 
-    // AJAX call for park event
-    $.ajax({
-        url: parkEventsURL,
-        method: "GET"
-    }).then(function(eventRes){
-        console.log(eventRes);
-    })
+            // Append the new h3 to the new div
+            newCampDiv.append(newCampH3);
+
+            // Empty the section with id park-names and append the new div. 
+            $("#middle").empty().append(newCampDiv);
+
+            campRes.data.forEach(function(camp){
+                // Create new h4, p, and if there is an url for reservation it also creates a "a" tag.
+                var newCampH4 = $("<h4>").text(camp.name);
+                var newCampP = $("<p>").text(camp.description);
+                if (camp.reservationUrl !== ""){var newCampA = $("<a>").attr("href", camp.reservationUrl).text("Click Here for Reservation")}
+                // Append the new tags to the new div.
+                newCampDiv.append(newCampH4, newCampP, newCampA);
+            })
+        })
+    }
+
+    function parkEvent(){
+        // AJAX call for park event
+        $.ajax({
+            url: parkEventsURL,
+            method: "GET"
+        }).then(function(eventRes){
+            console.log(eventRes);
+        })
+    }
 
     function thingsTodo(){
     // AJAX call for park to do
@@ -128,6 +169,7 @@ $(document).ready(function(){
     // Event listener to the button created inside the parkRes.data.forEach loop.
     $(document).on("click", ".parkBtn", function (event){
         event.preventDefault();
+        $("#park-names").empty();
 
         // Updates parkCode accordingly with the button clicked.
         parkCode = $(this).attr("data-name");
@@ -142,11 +184,13 @@ $(document).ready(function(){
         thingsTodo();
 
         parkEventsURL = "https://developer.nps.gov/api/v1/events?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkEvent();
 
         parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkCamp();
 
         parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
-
+        parkAlerts();
     })
 
     function forecast(){
