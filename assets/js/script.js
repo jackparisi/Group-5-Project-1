@@ -150,16 +150,18 @@ $(document).ready(function(){
         }).then(function(toDoRes){
             console.log(toDoRes);
             var activities = toDoRes.data;
-            // console.log(toDoRes.data);
             var toDoDiv = $("<div class='toDo'>");
-            $("#right").append(toDoDiv);
+            var actHead = $("<h3>").text("Park Activites");
+            toDoDiv.append(actHead);
             var actList = $("<ul class='list'>");
-            $(".toDo").empty().append(actList);
+            $("#middle").append(toDoDiv);
+            toDoDiv.append(actList);
             for(var i=0; i < activities.length; i++){
                 console.log(activities[i].activities[0].name + activities[i].title);
                 var listItem = $("<li>").text(activities[i].activities[0].name + " - " + activities[i].title);
                 actList.append(listItem);
             }
+            
         })
     }
 
