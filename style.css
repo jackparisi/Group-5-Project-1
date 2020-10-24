@@ -20,6 +20,7 @@
   height:600px;
   /* box-shadow: 10px 10px 5px grey; */
   border: 2px solid;
+  overflow: auto;
   
   
 }
@@ -63,6 +64,7 @@ aside {
   width:25%;
   height:600px;
   /* box-shadow: 10px 10px 5px grey; */
+  overflow: auto;
   border: 2px solid;
   
   
