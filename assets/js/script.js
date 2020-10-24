@@ -8,6 +8,7 @@ $(document).ready(function(){
     // Created global variable to store user state input.
 
     var inputStateCode = "";
+
     $("#stateCode").on("change", function(){
         var state = $(this).val();
         console.log(state);
@@ -20,9 +21,6 @@ $(document).ready(function(){
 
     // Global variable to hold park code.
     var parkCode = "";
-
-    // park queries field: parkCode, stateCode, limit(results up to 50), start(get the next limit result), q (a string to search for), sort (A comma delimited list of fields to sort the results by)
-    //var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + inputStateCode;
 
     // Global variable to hold park alerts URL to be used in the event listener for the park button.
     var parkAlertsURL = "";
@@ -41,32 +39,28 @@ $(document).ready(function(){
 
     
     function getParks(state){
-    // AJAX call for parks
-    // park queries field: parkCode, stateCode, limit(results up to 50), start(get the next limit result), q (a string to search for), sort (A comma delimited list of fields to sort the results by)
+    // park API URL query by state code.
     var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + state;
-
+    // AJAX call for parks
     $.ajax({
         url: parkURL,
         method: "GET"
     }).then(function(parkRes){
         console.log(parkRes);
         
+        $(".statePark").remove();
+
         var stateParkDiv = $("<div class='statePark'>");
 
         $("#left").append(stateParkDiv);
-        
-        $(".statePark").empty();
+                
         parkRes.data.forEach(function(data){
           
-            
-            // Create a button with the name of each park returned in the response
-            var newParkBtn = $("<button>").text(data.name);
+            // Create a button with the name of each park returned in the response, and add class parkBtn.
+            var newParkBtn = $("<button class='parkBtn'>").text(data.name);
 
             // Add a data-name attribute with each park name.
             newParkBtn.attr("data-name", data.parkCode);
-
-            // Add class to the button.
-            newParkBtn.addClass("parkBtn");
 
             data.addresses.forEach(function(address){
                 // console.log(address.city);
@@ -75,8 +69,6 @@ $(document).ready(function(){
 
             // Append the button to section id left (we can change it later).
             $(".statePark").append(newParkBtn);
-
-                        
             
         })
         
@@ -233,11 +225,11 @@ $(document).ready(function(){
                 var imgDayIcon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + icon + ".png");           
 
                 // variable to hold min temperature
-                var minTemp = $("<p>").text("Temperature: " + forecastArray[i].main.temp_min + " ℉");
+                var minTemp = $("<p>").text("Minimum Temperature: " + forecastArray[i].main.temp_min + " ℉");
                 // console.log(minTemp);
 
                 // variable to hold max temperature
-                var maxTemp = $("<p>").text("Temperature: " + forecastArray[i].main.temp_max + " ℉");;
+                var maxTemp = $("<p>").text("Maximum Temperature: " + forecastArray[i].main.temp_max + " ℉");;
                 // console.log(maxTemp);
 
                 // variable to hold humidity
