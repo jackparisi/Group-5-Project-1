@@ -18,7 +18,7 @@
   background-color: rgb(107, 204, 95);
   width: 25%;
   height:600px;
-  box-shadow: 10px 10px 5px grey;
+  /* box-shadow: 10px 10px 5px grey; */
   border: 2px solid;
   
   
@@ -43,18 +43,18 @@ aside {
     padding: 20px;
     margin-right: 30px;
     height: 500px;
-    box-shadow: 10px 10px 5px grey;
+    /* box-shadow: 10px 10px 5px grey; */
     
 }
-#division {
+/* #division {
    float: left;
-   padding: 20px;
+   padding: 10px;
    margin-left: left;
    background-color: greenyellow;
    box-shadow: 10px 10px 5px grey;
-   border: 2px solid;
+   border: 1px solid;
   
-}
+} */
 #right {
   text-align: center; 
   float: right;
@@ -62,15 +62,15 @@ aside {
   background-color: rgb(58, 201, 29);
   width:25%;
   height:600px;
-  box-shadow: 10px 10px 5px grey;
+  /* box-shadow: 10px 10px 5px grey; */
   border: 2px solid;
   
   
 }
 footer {
   background-color:rgb(67, 128, 189);
-  padding: 20%;
+  padding: 5%;
+  margin: 5px;
   clear: both;
   color: black;
-  padding: 30%;
 }
