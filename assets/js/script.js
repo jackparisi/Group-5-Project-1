@@ -6,15 +6,7 @@ $(document).ready(function(){
     var APIParkKey = "IeMPkZS36TxiVcv1TUIT5yzANx6szGLJE5BsDsZA";
 
     // Created global variable to store user state input.
-
     var inputStateCode = "";
-
-    $("#stateCode").on("change", function(){
-        var state = $(this).val();
-        console.log(state);
-        inputStateCode = state;
-        getParks(state);
-    })
 
     // Global variable to save the city where the park is located, captured on address function, inside AJAX call for parks.
     var parkCity = "";
@@ -28,16 +20,45 @@ $(document).ready(function(){
     // Global variable to hold park campground URL to be used in the event listener for the park button.
     var parkCampURL = "";
 
-    // Global variable to hold park events URL to be used in the event listener for the park button.
-    var parkEventsURL = "";
-
     // Global variable to hold park things to do URL to be used in the event listener for the park button.
     var parkThingsToDoURL = "";
 
     // Global variable to hold 5-day forecast URL to be used in the event listener for the park button.
     var fiveDayWeatherURL = "";
 
+    // Array to store saved favorite parks
+    var favParkArray = [{text:[], dataName:[], value:[]}];
+    console.log(favParkArray);
+
     
+
+    // Event listner to the state options drop down menu
+    $("#stateCode").on("change", function(){
+        var state = $(this).val();
+        console.log(state);
+        inputStateCode = state;
+        getParks(state);
+    })
+
+    initial();
+    
+    // Function initial sets the original set for the start of the page.
+    function initial(){
+        // variable created to get items storage in the local storade and update favParkArray.
+        var storedFav = JSON.parse(localStorage.getItem("favParkArray"));
+
+        if (storedFav !== null){
+            favParkArray = storedFav;
+        }
+
+        
+    }
+    
+    // Function created to favorite parks.
+    function storeParks(){
+        localStorage.setItem("favParkArray", JSON.stringify(favParkArray));
+    }
+
     function getParks(state){
     // park API URL query by state code.
     var parkURL = "https://developer.nps.gov/api/v1/parks?api_key=" + APIParkKey + "&stateCode=" + state;
@@ -90,17 +111,25 @@ $(document).ready(function(){
             // Append the new h3 to the new div
             newAlertDiv.append(newAlertH3);
 
-            // Empty the section with id park-names and append the new div. 
+            // Append the new div to the div with id middle. 
             $("#middle").append(newAlertDiv);
 
-            alertRes.data.forEach(function(alert){
-                // Create new h4, p, and if there is an url it also creates a "a" tag.
-                var newAlertH4 = $("<h4>").text(alert.title);
-                var newAlertP = $("<p>").text(alert.description);
-                if (alert.url !== ""){var newAlertA = $("<a>").attr("href", alert.url).text(alert.title);}
-                // Append the new tags to the new div.
-                newAlertDiv.append(newAlertH4, newAlertP, newAlertA);  
-            })
+            // In case the API return without any information for that park, then display a message.
+            if (alertRes.data.length === 0){
+                var newAlertP1 = $("<p>").text("There is no alert message for this park.");
+                newAlertDiv.append(newAlertP1);
+            }
+            else {
+
+                alertRes.data.forEach(function(alert){
+                    // Create new h4, p, and if there is an url it also creates a "a" tag.
+                    var newAlertH4 = $("<h4>").text(alert.title);
+                    var newAlertP = $("<p>").text(alert.description);
+                    if (alert.url !== ""){var newAlertA = $("<a>").attr("href", alert.url).text(alert.title);}
+                    // Append the new tags to the new div.
+                    newAlertDiv.append(newAlertH4, newAlertP, newAlertA);  
+                })
+            }
         })
     }
 
@@ -118,27 +147,24 @@ $(document).ready(function(){
             // Append the new h3 to the new div
             newCampDiv.append(newCampH3);
 
-            // Empty the section with id park-names and append the new div. 
-            $("#middle").empty().append(newCampDiv);
+            // Append the new div to the div with id middle. 
+            $("#middle").append(newCampDiv);
 
-            campRes.data.forEach(function(camp){
-                // Create new h4, p, and if there is an url for reservation it also creates a "a" tag.
-                var newCampH4 = $("<h4>").text(camp.name);
-                var newCampP = $("<p>").text(camp.description);
-                if (camp.reservationUrl !== ""){var newCampA = $("<a>").attr("href", camp.reservationUrl).text("Click Here for Reservation")}
-                // Append the new tags to the new div.
-                newCampDiv.append(newCampH4, newCampP, newCampA);
-            })
-        })
-    }
-
-    function parkEvent(){
-        // AJAX call for park event
-        $.ajax({
-            url: parkEventsURL,
-            method: "GET"
-        }).then(function(eventRes){
-            console.log(eventRes);
+            // In case the API return without any information for that park, then display a message.
+            if (campRes.data.length === 0){
+                var newCampP1 = $("<p>").text("There is no campground information for this park.");
+                newCampDiv.append(newCampP1);
+            }
+            else{
+                campRes.data.forEach(function(camp){
+                    // Create new h4, p, and if there is an url for reservation it also creates a "a" tag.
+                    var newCampH4 = $("<h4>").text(camp.name);
+                    var newCampP = $("<p>").text(camp.description);
+                    if (camp.reservationUrl !== ""){var newCampA = $("<a>").attr("href", camp.reservationUrl).text("Click Here for Reservation")}
+                    // Append the new tags to the new div.
+                    newCampDiv.append(newCampH4, newCampP, newCampA);
+                })
+            }
         })
     }
 
@@ -153,37 +179,71 @@ $(document).ready(function(){
             var toDoDiv = $("<div class='toDo'>");
             var actHead = $("<h3>").text("Park Activites");
             toDoDiv.append(actHead);
-            var actList = $("<ul class='list'>");
             $("#middle").append(toDoDiv);
-            toDoDiv.append(actList);
-            for(var i=0; i < activities.length; i++){
-                console.log(activities[i].activities[0].name + activities[i].title);
-                var listItem = $("<li>").text(activities[i].activities[0].name + " - " + activities[i].title);
-                actList.append(listItem);
+
+            if (toDoRes.data.length === 0){
+                var toDoP = $("<p>").text("There is no activity listed for this park.")
+                toDoDiv.append(toDoP);
             }
-            
+            else{
+                var actList = $("<ul class='list'>");            
+                toDoDiv.append(actList);
+                for(var i=0; i < activities.length; i++){
+                    console.log(activities[i].activities[0].name + activities[i].title);
+                    var listItem = $("<li>").text(activities[i].activities[0].name + " - " + activities[i].title);
+                    actList.append(listItem);
+                }
+            }
         })
     }
 
-    // Event listener to the button created inside the parkRes.data.forEach loop.
+    // Event listener for the button created inside the parkRes.data.forEach loop.
     $(document).on("click", ".parkBtn", function (event){
         event.preventDefault();
-        $("#park-names").empty();
+        $("#middle").empty();
 
         // Updates parkCode accordingly with the button clicked.
         parkCode = $(this).attr("data-name");
         console.log(parkCode);
         parkCity = $(this).val();
         console.log(parkCity);
+        parkName = $(this).text();
+               
+        var parkNameH3 = $("<h3>").text(parkName + " National Park");
+        
+        $("header").empty().append(parkNameH3);
+
+        var favBtn = $("<button class='favBtn'>").text("Save this park as Favorite");
+        $("#middle").append(favBtn);
+
+        $(document).on("click", ".favBtn", function(event){
+            event.preventDefault();
+             
+            // var favoritesBtn = $("<button class='favParkBtn'>").text(parkName).attr("data-name", parkCode).attr("value", parkCity);
+
+            // $(".favParkList").append(favoritesBtn);
+            favParkArray[0].text.push(parkName);
+            favParkArray[0].dataName.push(parkCode);
+            favParkArray[0].value.push(parkCity);
+            
+            storeParks();
+
+            var newFavDiv = $("<div class='favButtons'>");
+            $(".favParkList").append(newFavDiv);
+
+            for (var i = 0; i < favParkArray[0].text.length; i++){
+
+                var favoritesBtn = $("<button class='favParkBtn'>").text(favParkArray[0].text[i]).attr("data-name", favParkArray[0].dataName[i]).attr("value", favParkArray[0].value[i]);
+    
+                $(".favParkList").append(favoritesBtn);
+            }
+        })
 
         fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
         forecast();
 
         parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
         thingsTodo();
-
-        parkEventsURL = "https://developer.nps.gov/api/v1/events?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
-        parkEvent();
 
         parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
         parkCamp();
@@ -192,6 +252,44 @@ $(document).ready(function(){
         parkAlerts();
     })
 
+    // Event listener for the favorite parks button.
+    $(document).on("click", ".favParkBtn", function (event){
+        event.preventDefault();
+        $("#middle").empty();
+
+        // Updates parkCode accordingly with the button clicked.
+        parkCode = $(this).attr("data-name");
+        console.log(parkCode);
+        parkCity = $(this).val();
+        console.log(parkCity);
+        parkName = $(this).text();
+               
+        var parkNameH3 = $("<h3>").text(parkName + " National Park");
+        
+        $("header").empty().append(parkNameH3);
+
+        fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
+        forecast();
+
+        parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        thingsTodo();
+
+        parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkCamp();
+
+        parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkAlerts();
+    })
+
+    // Function created to clean the favorite parks buttons.
+    $(".cleanFav").on("click", function (event){
+        event.preventDefault();
+
+        localStorage.clear();
+        favParkArray = [{text:[], dataName:[], value:[]}];
+        $(".favParkBtn").remove();
+    })
+    
     function forecast(){
         // AJAX call to 5 days forecast
         $.ajax({
@@ -203,11 +301,13 @@ $(document).ready(function(){
             // Variable to hold the forecast array
             var forecastArray = fiveDayRes.list
 
-            var newDayH3 = $("<h3>").text("5-Day Forecast");
+            var newDayH3 = $("<h2>").text("5-Day Forecast");
+
+            var newDayH2 = $("<h3>").text(parkCity);
 
             var newCardDeck = $("<div class='card-deck'>");
 
-            $("#forecast-weather").empty().append(newDayH3, newCardDeck);
+            $("#forecast-weather").empty().append(newDayH3, newDayH2, newCardDeck);
 
             // For loop to take the one day out of forecast array
             for (var i=0; i < forecastArray.length; i+=8){

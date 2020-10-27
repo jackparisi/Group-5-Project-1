@@ -43,14 +43,13 @@
 <body>
   
   <header>
-    something can go here
+    National Parks
   </header>
   
 
-  <section id="left">
-    Section for state parks(dropdown)
+  <section id="left">    
     <div class="form-group">
-      <label for="pwd">State:</label>
+      <label for="pwd">Select a state to begin your search:</label>
       <select id="stateCode" class="custom-select" aria-labelledby="dropdownMenuButton">
         <option selected value="AL">Alabama</option>
         <option selected value="AK">Alaska</option>
@@ -105,6 +104,13 @@
         <option selected value="WY">Wyoming</option>
         
       </select>
+    </div>
+    <div class="favParkList">
+      <h3>Favorite Parks</h3>
+      <button class="cleanFav">Clean Favorite List</button>
+    </div>
+    <div class="parkList">
+      <h3>Parks Results</h3>      
     </div>
   </section>
 
