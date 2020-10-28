@@ -213,11 +213,19 @@ $(document).ready(function(){
             value: parkCity,
         };
 
-        favParkArray.push(newFavorite);
+        var notFound = true
 
+        favParkArray.forEach(function(fav){
+            if(fav.text === newFavorite.text){
+            notFound = false}
+        })
+        
+        if(notFound){
+         favParkArray.push(newFavorite);
+        }
         console.log(favParkArray);
         
-        //storeParks();
+        storeParks();
         
        var newFavDiv = $("<div class='favButtons'>");
         $(".favParkList").find(".favButtons").remove();
