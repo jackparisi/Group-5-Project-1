@@ -9,11 +9,7 @@
     font-size: 20px;
     background-color: lightblue;
     font-style: Trebuchet;
-    
-  
   }
-  
-  
   
   header{
     padding: 20px;
@@ -32,16 +28,14 @@
   border: 2px solid;
   overflow: auto;
   font-style: Lucida;
-  
-  
-  
 }
+
 #middle {
   text-align: center;
   float: left;
-  font-size: 35px;
+  font-size: 25px;
   font-style: Lucida;
-  background-color: rgb(14, 125, 158);
+  background-color:lightgreen;
   width: 50%;
   height: 650px;
   overflow: auto;
@@ -50,7 +44,6 @@
   padding: 2%;
 }
 
-     
 aside {
   font-style: Lucida;
     background-color:rgb(103, 204, 238);
@@ -101,20 +94,15 @@ div img {
   overflow: auto;
   border: 2px solid;
   font-style: Lucida;
-  
-  
 }
+
 footer {
   background-color:lightblue;
-  padding: 2%;
+  padding: 1%;
   margin: 5px;
   clear: both;
   color: black;
 }
-
-@import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic);
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
-
 
 .centered {
   position: absolute;
@@ -125,4 +113,24 @@ footer {
   font-style: bold;
 }
 
+/* //this is for the save the park as a favorite */
+.favBtn {
+  font-style: italic;
+}
+
+/* //this is for the Clean favorite list button */
+.cleanFav {
+  font-style: italic;
+  border: 5px;
+}
+
+/* //this is for the list of the favorite parks */
+.favParkBtn {
+  font-style: italic;
+}
+
+/* //this is for the list of the park buttons after they select a state */
+.parkBtn {
+  font-style: italic;
+}
 
