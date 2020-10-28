@@ -78,3 +78,13 @@ footer {
   clear: both;
   color: black;
 }
+
+.centered {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  font-style: bold;
+}
+
