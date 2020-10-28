@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- //links to style.css -->
   <link
     href="https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic";
    rel="stylesheet" />
@@ -12,52 +12,22 @@
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
 
+<!-- //title of the url  -->
   <title>National Parks</title>
-</head>
-<style>
-  .container {
-    position: relative;
-  }
-
-  .topleft {
-    position: absolute;
-    top: 8px;
-    left: 16px;
-    font-size: 12px;
-    font-style: italic;
-  }
-
-  div img {
-    width: 90%;
-    height: auto;
-    opacity: 0.3;
-  }
-</style>
-</head>
-
 <body>
-  <h2>Wander</h2>
-
-
+  <!-- //our project name -->
+  <h2>National Park and Weather Status for Adventures</h2>
+<!-- //quote for the image  -->
   <div class="container">
-
     <img src="https://www.scti.com.au/-/media/project/scti/nz/images/travel-advice/best-national-parks-usa/usa-national-parks-header-1440x300.jpg" width="1000" height="300">
     <div class="centered">"The farther one gets into the wilderness, the greater is the attraction of its lonely freedom." - Theodore Roosevelt</div>
-
   </div>
-
-</body>
-
-</html>
-
-
-<body>
-
+<!-- // header -->
   <header>
     National Parks
   </header>
 
-
+<!-- //select a state and park results -->
   <section id="left">
     <div class="form-group">
       <label for="pwd">Select a state to begin your search:</label>
@@ -113,18 +83,16 @@
         <option selected value="WV">West Virginia</option>
         <option selected value="WI">Wisconsin</option>
         <option selected value="WY">Wyoming</option>
-
       </select>
     </div>
+    <!-- //favorite park searches -->
     <div class="favParkList">
-
       <h3>Favorite Parks</h3>
       <button class="cleanFav">Clean Favorite List</button>
     </div>
     <div class="parkList">
       <h3>Parks Results</h3>
     </div>
-
   </section>
 
   <section id="right">
@@ -138,23 +106,19 @@
   </section>
 
   <section>
-
       <footer>
         <div id="footer">
         Site created by Group 5, objectively the best group: Camila Alves Meyer, Jack Parisi, Stephen Keenan, Tanner Mosley, and Tyler Silverman. Do not steal lest you face our wrath.
       </footer>
-
     </div>
   </section>
 
 
-
-
+<!-- //Javascript -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous">
     </script>
   <script src="assets/js/script.js"></script>
 
 </body>
-
 </html>

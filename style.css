@@ -72,6 +72,24 @@ aside {
    border: 1px solid;
   
 } */
+.container {
+  position: relative;
+}
+
+.topleft {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  font-size: 12px;
+  font-style: italic;
+}
+
+div img {
+  width: 90%;
+  height: auto;
+  opacity: 0.3;
+}
+
 #right {
   text-align: center; 
   float: right;
