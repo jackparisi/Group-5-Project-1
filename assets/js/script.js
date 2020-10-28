@@ -27,7 +27,7 @@ $(document).ready(function(){
     var fiveDayWeatherURL = "";
 
     // Array to store saved favorite parks
-    var favParkArray = [{text:[], dataName:[], value:[]}];
+    var favParkArray = [];
     console.log(favParkArray);
 
     
@@ -197,6 +197,42 @@ $(document).ready(function(){
         })
     }
 
+    $(document).on("click", ".favBtn", function(event){
+        event.preventDefault();
+         
+        // var favoritesBtn = $("<button class='favParkBtn'>").text(parkName).attr("data-name", parkCode).attr("value", parkCity);
+
+        // $(".favParkList").append(favoritesBtn);
+        // favParkArray[0].text.push(parkName);
+        // favParkArray[0].dataName.push(parkCode);
+        // favParkArray[0].value.push(parkCity);
+
+        var newFavorite = {
+            text: parkName,
+            dataName: parkCode,
+            value: parkCity,
+        };
+
+        favParkArray.push(newFavorite);
+
+        console.log(favParkArray);
+        
+        //storeParks();
+        
+       var newFavDiv = $("<div class='favButtons'>");
+        $(".favParkList").find(".favButtons").remove();
+        
+        favParkArray.forEach(function(favLoop){
+
+            var favoritesBtn = $("<button class='favParkBtn'>").text(favLoop.text).attr("data-name", favLoop.dataName).attr("value", favLoop.value);
+            
+
+            newFavDiv.append(favoritesBtn);
+        })
+
+        $(".favParkList").append(newFavDiv);
+    })
+
     // Event listener for the button created inside the parkRes.data.forEach loop.
     $(document).on("click", ".parkBtn", function (event){
         event.preventDefault();
@@ -216,28 +252,7 @@ $(document).ready(function(){
         var favBtn = $("<button class='favBtn'>").text("Save this park as Favorite");
         $("#middle").append(favBtn);
 
-        $(document).on("click", ".favBtn", function(event){
-            event.preventDefault();
-             
-            // var favoritesBtn = $("<button class='favParkBtn'>").text(parkName).attr("data-name", parkCode).attr("value", parkCity);
-
-            // $(".favParkList").append(favoritesBtn);
-            favParkArray[0].text.push(parkName);
-            favParkArray[0].dataName.push(parkCode);
-            favParkArray[0].value.push(parkCity);
-            
-            storeParks();
-
-            var newFavDiv = $("<div class='favButtons'>");
-            $(".favParkList").append(newFavDiv);
-
-            for (var i = 0; i < favParkArray[0].text.length; i++){
-
-                var favoritesBtn = $("<button class='favParkBtn'>").text(favParkArray[0].text[i]).attr("data-name", favParkArray[0].dataName[i]).attr("value", favParkArray[0].value[i]);
-    
-                $(".favParkList").append(favoritesBtn);
-            }
-        })
+       
 
         fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
         forecast();

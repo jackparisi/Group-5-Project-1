@@ -93,5 +93,18 @@ footer {
   clear: both;
   color: black;
 }
+
 @import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic);
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
+
+
+.centered {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 15px;
+  font-style: bold;
+}
+
+
