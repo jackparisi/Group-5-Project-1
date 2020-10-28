@@ -116,21 +116,56 @@ footer {
 /* //this is for the save the park as a favorite */
 .favBtn {
   font-style: italic;
+  border: 5px;
+  color: #11a75c;
+  margin-left: 15px;
+  border-style: ridge;
+  background: rgb(211, 235, 235);
 }
 
 /* //this is for the Clean favorite list button */
 .cleanFav {
   font-style: italic;
   border: 5px;
+  color: #11a75c;
+  margin-left: 15px;
+  background: rgb(211, 235, 235);
+  border-style: ridge;
+
+
 }
 
 /* //this is for the list of the favorite parks */
 .favParkBtn {
   font-style: italic;
+  display: block;
+  margin-left: 15px;
+  /* color: #11a75c; */
+  margin-left: 15px;
+  background: rgb(211, 235, 235);
+  border-style: ridge;
 }
 
 /* //this is for the list of the park buttons after they select a state */
 .parkBtn {
   font-style: italic;
+  display: block;
+  color: #11a75c;
+  margin-left: 15px;
+  background: rgb(211, 235, 235);
+  border-style: ridge;
+
 }
+
+/* .imgDayIcon .icon {
+
+  width: 10%;
+  height: 5px;
+   */
+
+
+
+ 
+
+
 
