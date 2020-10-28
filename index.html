@@ -4,14 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic";
+   rel="stylesheet" />
+   <link
+      href="https://fonts.googleapis.com/css?family=Raleway:400,700";  
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
+
   <title>National Parks</title>
 </head>
 <style>
   .container {
     position: relative;
   }
-  
+
   .topleft {
     position: absolute;
     top: 8px;
@@ -19,35 +26,45 @@
     font-size: 12px;
     font-style: italic;
   }
-  
-  img { 
+
+  div img {
     width: 90%;
     height: auto;
     opacity: 0.3;
   }
-  </style>
-  </head>
-  <body>
-  <h2>Wander</h2>
- 
-  
-  <div class="container">
-    <img src="https://www.scti.com.au/-/media/project/scti/nz/images/travel-advice/best-national-parks-usa/usa-national-parks-header-1440x300.jpg" width="1000" height="300">
-    <div class="centered">"The farther one gets into the wilderness, the greater is the attraction of its lonely freedom." - Theodore Roosevelt</div>
-  </div>
-  
-  </body>
-  </html>
-  
+</style>
+</head>
 
 <body>
-  
+  <h2>Wander</h2>
+
+
+  <div class="container">
+
+    <img
+      src="https://www.scti.com.au/-/media/project/scti/nz/images/travel-advice/best-national-parks-usa/usa-national-parks-header-1440x300.jpg"
+      width="1000" height="300">
+    <div class="topleft">"The farther one gets into the wilderness, the greater is the attraction of its lonely
+      freedom."</div>
+
+    <img src="https://www.scti.com.au/-/media/project/scti/nz/images/travel-advice/best-national-parks-usa/usa-national-parks-header-1440x300.jpg" width="1000" height="300">
+    <div class="centered">"The farther one gets into the wilderness, the greater is the attraction of its lonely freedom." - Theodore Roosevelt</div>
+
+  </div>
+
+</body>
+
+</html>
+
+
+<body>
+
   <header>
     National Parks
   </header>
-  
 
-  <section id="left">    
+
+  <section id="left">
     <div class="form-group">
       <label for="pwd">Select a state to begin your search:</label>
       <select id="stateCode" class="custom-select" aria-labelledby="dropdownMenuButton">
@@ -102,33 +119,42 @@
         <option selected value="WV">West Virginia</option>
         <option selected value="WI">Wisconsin</option>
         <option selected value="WY">Wyoming</option>
-        
+
       </select>
     </div>
     <div class="favParkList">
+
       <h3>Favorite Parks</h3>
       <button class="cleanFav">Clean Favorite List</button>
     </div>
     <div class="parkList">
-      <h3>Parks Results</h3>      
+      <h3>Parks Results</h3>
     </div>
+
   </section>
 
   <section id="right">
     Displaying Forecast
-    <section id = "forecast-weather"></section>
+    <section id="forecast-weather"></section>
   </section>
 
   <section id="middle">
     Displaying The Park
-    <section id = "park-names"></section>
+    <section id="park-names"></section>
   </section>
 
   <section>
+
+    <footer>
+      <div id="footer">
+        not sure whats going here
+    </footer>
+
       <footer>
         <div id="footer">
         Site created by Group 5, objectively the best group: Camila Alves Meyer, Jack Parisi, Stephen Keenan, Tanner Mosley, and Tyler Silverman. Do not steal lest you face our wrath.
       </footer>
+
     </div>
   </section>
 
@@ -139,6 +165,7 @@
     integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous">
     </script>
   <script src="assets/js/script.js"></script>
+
 </body>
 
 </html>
