@@ -2,27 +2,37 @@
     box-sizing: border-box;
     text-align: center;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
   }
+
   body {
     font-size: 20px;
     background-color: lightblue;
     font-style: Trebuchet;
+    
+  
   }
+  
+  
+  
   header{
     padding: 20px;
     margin-bottom: 20px;
     background: lightblue;
     
   }
+ 
 #left {
   text-align: center;
   float: left;
   background-color: rgb(103, 204, 238);
   width: 25%;
-  height:600px;
+  height:650px;
   /* box-shadow: 10px 10px 5px grey; */
   border: 2px solid;
   overflow: auto;
+  font-style: Lucida;
+  
   
   
 }
@@ -30,15 +40,19 @@
   text-align: center;
   float: left;
   font-size: 35px;
+  font-style: Lucida;
   background-color: rgb(14, 125, 158);
   width: 50%;
-  height: 600px;
+  height: 650px;
   overflow: auto;
   border: 2px solid;
   border-color:rgb(61, 61, 32) ;
   padding: 2%;
 }
+
+     
 aside {
+  font-style: Lucida;
     background-color:rgb(103, 204, 238);
     width: 25%;
     border: 2px;
@@ -64,17 +78,20 @@ aside {
   display: block;
   background-color: rgb(103, 204, 238);
   width:25%;
-  height:600px;
+  height:650px;
   /* box-shadow: 10px 10px 5px grey; */
   overflow: auto;
   border: 2px solid;
+  font-style: Lucida;
   
   
 }
 footer {
   background-color:lightblue;
-  padding: 5%;
+  padding: 2%;
   margin: 5px;
   clear: both;
   color: black;
 }
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700,100italic,300italic,400italic,700italic,900,900italic);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
