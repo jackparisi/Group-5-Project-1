@@ -123,7 +123,7 @@ $(document).ready(function(){
 
             // In case the API return without any information for that park, then display a message.
             if (alertRes.data.length === 0){
-                var newAlertP1 = $("<p>").text("There is no alert message for this park.");
+                var newAlertP1 = $("<p>").text("There are no alert messages for this park at this time.");
                 newAlertDiv.append(newAlertP1);
             }
             else {
@@ -202,7 +202,7 @@ $(document).ready(function(){
 
             // In case the API return without any information for that park, then display a message.
             if (toDoRes.data.length === 0){
-                var toDoP = $("<p>").text("There is no activity listed for this park.")
+                var toDoP = $("<p>").text("There are no activities listed for this park at his time.")
                 toDoDiv.append(toDoP);
             }
             else{
