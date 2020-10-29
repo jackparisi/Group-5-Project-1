@@ -24,7 +24,6 @@
   background-color: rgb(103, 204, 238);
   width: 25%;
   height:650px;
-  /* box-shadow: 10px 10px 5px grey; */
   border: 2px solid;
   overflow: auto;
   font-style: Lucida;
@@ -53,18 +52,8 @@ aside {
     padding: 20px;
     margin-right: 30px;
     height: 500px;
-    /* box-shadow: 10px 10px 5px grey; */
-    
 }
-/* #division {
-   float: left;
-   padding: 10px;
-   margin-left: left;
-   background-color: greenyellow;
-   box-shadow: 10px 10px 5px grey;
-   border: 1px solid;
-  
-} */
+
 .container {
   position: relative;
 }
@@ -87,13 +76,16 @@ aside {
   text-align: center; 
   float: right;
   display: block;
-  background-color: rgb(103, 204, 238);
+  background-color:burlywood;
   width:25%;
   height:650px;
-  /* box-shadow: 10px 10px 5px grey; */
   overflow: auto;
   border: 2px solid;
   font-style: Lucida;
+}
+
+#left {
+  background-color: burlywood;
 }
 
 footer {
@@ -115,9 +107,11 @@ footer {
 
 /* //this is for the save the park as a favorite */
 .favBtn {
-  font-style: italic;
+  font-style: normal;
+  font: bold;
+  border-color: black;
   border: 5px;
-  color: #11a75c;
+  color: black;
   margin-left: 15px;
   border-style: ridge;
   background: rgb(211, 235, 235);
@@ -125,7 +119,9 @@ footer {
 
 /* //this is for the Clean favorite list button */
 .cleanFav {
-  font-style: italic;
+  border-color: black;
+  font-style: normal;
+  font: bold;
   border: 5px;
   color: #11a75c;
   margin-left: 15px;
@@ -137,35 +133,38 @@ footer {
 
 /* //this is for the list of the favorite parks */
 .favParkBtn {
-  font-style: italic;
+  font-style: normal;
+  border-color: black;
+  font: bold;
   display: block;
-  margin-left: 15px;
-  /* color: #11a75c; */
-  margin-left: 15px;
+  margin: 5px;
+  margin-left: 100px;
   background: rgb(211, 235, 235);
   border-style: ridge;
 }
 
 /* //this is for the list of the park buttons after they select a state */
 .parkBtn {
-  font-style: italic;
+  font-style: normal;
+  font: bold;
   display: block;
-  color: #11a75c;
-  margin-left: 15px;
+  margin: 5px;
+  margin-left: 100px;
   background: rgb(211, 235, 235);
   border-style: ridge;
 
 }
 
-/* .imgDayIcon .icon {
+.parkList {
+  margin-right: 40px;
+}
 
-  width: 10%;
-  height: 5px;
-   */
-
-
-
- 
+/* The width is 100%, when the viewport is 800px or smaller */
+@media screen and (max-width:800px) {
+  #left, #middle, #right {
+    width:100%; 
+  }
+}
 
 
 
