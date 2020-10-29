@@ -10,8 +10,9 @@
    <link
       href="https://fonts.googleapis.com/css?family=Raleway:400,700";  
     rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/402fd511ff.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
-  
+</head>  
 
 <!-- //title of the url  -->
   <title>National Parks</title>
@@ -20,8 +21,8 @@
   <h2>National Park and Weather Status for Adventures</h2>
 <!-- //quote for the image  -->
   <div class="container">
-    <img src="https://www.scti.com.au/-/media/project/scti/nz/images/travel-advice/best-national-parks-usa/usa-national-parks-header-1440x300.jpg" width="1000" height="300">
-    <div class="centered">"The farther one gets into the wilderness, the greater is the attraction of its lonely freedom." - Theodore Roosevelt</div>
+    <img class="banner" src="https://www.scti.com.au/-/media/project/scti/nz/images/travel-advice/best-national-parks-usa/usa-national-parks-header-1440x300.jpg" width="1000" height="300">
+    <div class="centered">"The further one gets into the wilderness, the greater is the attraction of its lonely freedom." - Theodore Roosevelt</div>
   </div>
 <!-- // header -->
   <header>
@@ -89,9 +90,9 @@
     <!-- //favorite park searches -->
     <div class="favParkList">
       <strong><h4>Favorite Parks</h4></strong>
-      <button class="cleanFav">Clean Favorite List</button>
+      <button class="cleanFav">Clean Favorite List <i class="fas fa-trash"></i></button>
     </div>
-    <div class="parkList favParkBtn">
+    <div class="parkList">
       <strong><h4>Parks Results</h4></strong>
     </div>
   </section>
@@ -101,8 +102,10 @@
   </section>
 
   <section id="middle">
-    <h5>Displaying The Park<h5>
-    <section id="park-names"></section>
+    <div class="favBtnDiv"><h5>Select a park to retrieve alerts, campgrounds, and things to do.<h5></h5></div>
+    <div class="alert"></div>
+    <div class="camp"></div>
+    <div class="toDo"></div>
   </section>
 
   <section>
