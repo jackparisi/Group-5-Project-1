@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     // Array to store saved favorite parks.
     var favParkArray = [];
-    // console.log(favParkArray);    
+    console.log(favParkArray);    
 
     // Event listner to the state options drop down menu.
     $("#stateCode").on("change", function(){
@@ -109,17 +109,17 @@ $(document).ready(function(){
             url: parkAlertsURL,
             method: "GET"
         }).then(function(alertRes){
-            // console.log(alertRes);
+            console.log(alertRes);
 
             // Created new div and h3.
-            var newAlertDiv = $("<div class='alert'>");
+            var newAlertDiv = $("<div class='alertDiv'>");
             var newAlertH3 = $("<h3>").text("Park Alerts");
 
             // Append the new h3 to the new div.
             newAlertDiv.append(newAlertH3);
 
-            // Append the new div to the div with id middle. 
-            $("#middle").append(newAlertDiv);
+            // Append the new div to the div with class alert. 
+            $(".alert").append(newAlertDiv);
 
             // In case the API return without any information for that park, then display a message.
             if (alertRes.data.length === 0){
@@ -147,17 +147,17 @@ $(document).ready(function(){
             url: parkCampURL,
             method: "GET"
         }).then(function(campRes){
-            // console.log(campRes);
+            console.log(campRes);
 
             // Created new div and h3.
-            var newCampDiv = $("<div class='camp'>");
+            var newCampDiv = $("<div class='campDiv'>");
             var newCampH3 = $("<h3>").text("Campgrounds");
 
             // Append the new h3 to the new div.
             newCampDiv.append(newCampH3);
 
-            // Append the new div to the div with id middle. 
-            $("#middle").append(newCampDiv);
+            // Append the new div to the div with class camp. 
+            $(".camp").append(newCampDiv);
 
             // In case the API return without any information for that park, then display a message.
             if (campRes.data.length === 0){
@@ -185,20 +185,20 @@ $(document).ready(function(){
             url: parkThingsToDoURL,
             method: "GET"
         }).then(function(toDoRes){
-            // console.log(toDoRes);
+            console.log(toDoRes);
 
             // variable to save the response path.
             var activities = toDoRes.data;
 
             // Created new div and h3.
-            var toDoDiv = $("<div class='toDo'>");
+            var toDoDiv = $("<div class='toDoDiv'>");
             var actHead = $("<h3>").text("Park Activites");
 
             // Append the new h3 to the new div.
             toDoDiv.append(actHead);
 
-            // Append the new div to the div with id middle. 
-            $("#middle").append(toDoDiv);
+            // Append the new div to the div with class toDo. 
+            $(".toDo").append(toDoDiv);
 
             // In case the API return without any information for that park, then display a message.
             if (toDoRes.data.length === 0){
@@ -278,8 +278,10 @@ $(document).ready(function(){
     // Event listener for the button created inside the parkRes.data.forEach loop.
     $(document).on("click", ".parkBtn", function (event){
         event.preventDefault();
-        // Empty div with id middle before appending the following to clean it before add new information.
-        $("#middle").empty();
+        // Empty divs before appending the following to clean them before add new information.
+        $(".alert").empty();
+        $(".camp").empty();
+        $(".toDo").empty();
 
         // Updates parkCode accordingly with the button clicked.
         parkCode = $(this).attr("data-name");
@@ -300,8 +302,8 @@ $(document).ready(function(){
 
         // Create a button that gives the user the option to save the current park as favorite.
         var favBtn = $("<button class='favBtn'>").text("Save this park as Favorite");
-        // Attach this button to the middle section.
-        $("#middle").append(favBtn);       
+        // Attach this button to the div with class favBtnDiv.
+        $(".favBtnDiv").empty().append(favBtn);       
 
         // Update weather URL with currenty city.
         fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
@@ -327,8 +329,11 @@ $(document).ready(function(){
     // Event listener for the favorite parks button. Very similar to the event listner to the button "parkBtn"; however, here we do not need to create a button to save park as favorite, as it is already saved as favorite.
     $(document).on("click", ".favParkBtn", function (event){
         event.preventDefault();
-        // Empty div with id middle before appending the following to clean it before add new information.
-        $("#middle").empty();
+        // Empty divs before appending the following to clean them before add new information.
+        $(".alert").empty();
+        $(".camp").empty();
+        $(".toDo").empty();
+        $(".favBtnDiv").empty();
 
         // Updates parkCode accordingly with the button clicked.
         parkCode = $(this).attr("data-name");
