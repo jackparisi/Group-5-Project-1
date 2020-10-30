@@ -103,10 +103,11 @@ $(document).ready(function(){
     })}
 
     // Function that looks for the park alerts.
-    function parkAlerts(){
+    function parkAlerts(url){
+        console.log(url)
     // AJAX call for park alerts
         $.ajax({
-            url: parkAlertsURL,
+            url: url,
             method: "GET"
         }).then(function(alertRes){
             console.log(alertRes);
@@ -141,10 +142,11 @@ $(document).ready(function(){
     }
 
     // Function that looks for the park campground information.
-    function parkCamp(){
+    function parkCamp(url){
+        console.log(url);
     // AJAX call for park campgrounds
         $.ajax({
-            url: parkCampURL,
+            url: url,
             method: "GET"
         }).then(function(campRes){
             console.log(campRes);
@@ -179,10 +181,11 @@ $(document).ready(function(){
     }
 
     // Function that looks for the park activities.
-    function thingsTodo(){
+    function thingsTodo(url){
+        console.log(url);
     // AJAX call for park to do
         $.ajax({
-            url: parkThingsToDoURL,
+            url: url,
             method: "GET"
         }).then(function(toDoRes){
             console.log(toDoRes);
@@ -232,6 +235,7 @@ $(document).ready(function(){
             text: parkName,
             dataName: parkCode,
             value: parkCity,
+            dataState: inputStateCode,
         };
 
         // Create a variable with a boolean "true" to be used as a check before creating a button.
@@ -267,7 +271,7 @@ $(document).ready(function(){
         favParkArray.forEach(function(favLoop){
 
             // Create a button, give class favParkBtn, add text and attributes saved in the object properties so the favorite park function just like the park buttons.
-            var favoritesBtn = $("<button class='favParkBtn'>").text(favLoop.text).attr("data-name", favLoop.dataName).attr("value", favLoop.value);
+            var favoritesBtn = $("<button class='favParkBtn'>").text(favLoop.text).attr("data-name", favLoop.dataName).attr("value", favLoop.value).attr("data-state", favLoop.dataState);
             // Append the new buttons to the div created at variable newFavDiv.
             newFavDiv.append(favoritesBtn);
         })
@@ -308,22 +312,22 @@ $(document).ready(function(){
         // Update weather URL with currenty city.
         fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
         // Call function forecast.
-        forecast();
+        forecast(fiveDayWeatherURL);
 
         // Update things to do URL with current state code and park code.
         parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
         // Call function thingsTodo.
-        thingsTodo();
+        thingsTodo(parkThingsToDoURL);
 
         // Update campgrounds URL with current state code and park code.
         parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
         // Call function parkCamp.
-        parkCamp();
+        parkCamp(parkCampURL);
 
         // Update alerts URL with current state code and park code.
         parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
         // Call function parkAlerts.
-        parkAlerts();
+        parkAlerts(parkAlertsURL);
     })
 
     // Event listener for the favorite parks button. Very similar to the event listner to the button "parkBtn"; however, here we do not need to create a button to save park as favorite, as it is already saved as favorite.
@@ -337,11 +341,15 @@ $(document).ready(function(){
 
         // Updates parkCode accordingly with the button clicked.
         parkCode = $(this).attr("data-name");
-        // console.log(parkCode);
+        console.log(parkCode);
+
+        // Updates parkCode accordingly with the button clicked.
+        parkState = $(this).attr("data-state");
+        console.log(parkState);
 
         // Grab button value to update the global variable parkCity.
         parkCity = $(this).val();
-        // console.log(parkCity);
+        console.log(parkCity);
 
         // Grab button text to update the global variable parkName.
         parkName = $(this).text();
@@ -355,22 +363,22 @@ $(document).ready(function(){
         // Update weather URL with currenty city.
         fiveDayWeatherURL = "https://api.openweathermap.org/data/2.5/forecast?units=imperial" + "&appid=" + APIWeatherKey + "&q=" + parkCity;
         // Call function forecast.
-        forecast();
+        forecast(fiveDayWeatherURL);
 
         // Update things to do URL with current state code and park code.
-        parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkThingsToDoURL = "https://developer.nps.gov/api/v1/thingstodo?api_key=" + APIParkKey+ "&stateCode=" + parkState + "&parkCode=" + parkCode;
         // Call function thingsTodo.
-        thingsTodo();
+        thingsTodo(parkThingsToDoURL);
 
         // Update campgrounds URL with current state code and park code.
-        parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkCampURL = "https://developer.nps.gov/api/v1/campgrounds?api_key=" + APIParkKey+ "&stateCode=" + parkState + "&parkCode=" + parkCode;
         // Call function parkCamp.
-        parkCamp();
+        parkCamp(parkCampURL);
 
         // Update alerts URL with current state code and park code.
-        parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey+ "&stateCode=" + inputStateCode + "&parkCode=" + parkCode;
+        parkAlertsURL = "https://developer.nps.gov/api/v1/alerts?api_key=" + APIParkKey+ "&stateCode=" + parkState + "&parkCode=" + parkCode;
         // Call function parkAlerts.
-        parkAlerts();
+        parkAlerts(parkAlertsURL);
     })
 
     // Function created to clean the favorite parks buttons.
@@ -383,10 +391,11 @@ $(document).ready(function(){
     })
     
     // FFunction that looks for the forecast data.
-    function forecast(){
+    function forecast(url){
+        console.log(url);
         // AJAX call for the 5 days forecast.
         $.ajax({
-            url: fiveDayWeatherURL,
+            url: url,
             method: "GET"
         }).then(function(fiveDayRes){
             // console.log(fiveDayRes);
@@ -411,7 +420,7 @@ $(document).ready(function(){
                 // variable to hold date and format it to javaScript.
                 var date = new Date (forecastArray[i].dt_txt);
                 // console.log(date);
-                var displayDate = $("<p>").text(date.getMonth()+1 + "-" + date.getDate() + "-" + date.getFullYear());
+                var displayDate = $("<p id='date'>").text(date.getMonth()+1 + "-" + date.getDate() + "-" + date.getFullYear());
 
                 // variable to hold icon name.
                 var icon = forecastArray[i].weather[0].icon;
