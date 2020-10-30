@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     // Array to store saved favorite parks.
     var favParkArray = [];
-    console.log(favParkArray);    
+    // console.log(favParkArray);    
 
     // Event listner to the state options drop down menu.
     $("#stateCode").on("change", function(){
@@ -104,13 +104,13 @@ $(document).ready(function(){
 
     // Function that looks for the park alerts.
     function parkAlerts(url){
-        console.log(url)
+        // console.log(url)
     // AJAX call for park alerts
         $.ajax({
             url: url,
             method: "GET"
         }).then(function(alertRes){
-            console.log(alertRes);
+            // console.log(alertRes);
 
             // Created new div and h3.
             var newAlertDiv = $("<div class='alertDiv'>");
@@ -143,13 +143,13 @@ $(document).ready(function(){
 
     // Function that looks for the park campground information.
     function parkCamp(url){
-        console.log(url);
+        // console.log(url);
     // AJAX call for park campgrounds
         $.ajax({
             url: url,
             method: "GET"
         }).then(function(campRes){
-            console.log(campRes);
+            // console.log(campRes);
 
             // Created new div and h3.
             var newCampDiv = $("<div class='campDiv'>");
@@ -182,13 +182,13 @@ $(document).ready(function(){
 
     // Function that looks for the park activities.
     function thingsTodo(url){
-        console.log(url);
+        // console.log(url);
     // AJAX call for park to do
         $.ajax({
             url: url,
             method: "GET"
         }).then(function(toDoRes){
-            console.log(toDoRes);
+            // console.log(toDoRes);
 
             // variable to save the response path.
             var activities = toDoRes.data;
@@ -230,7 +230,7 @@ $(document).ready(function(){
         event.preventDefault();
 
         // Create a new object to save the information for the favorite park.
-        // Grab current parkName, parkCode, and parkCity to be added in the new favorite parks buttons.
+        // Grab current parkName, parkCode, parkCity and inputStateCode to be added in the new favorite parks buttons.
         var newFavorite = {
             text: parkName,
             dataName: parkCode,
@@ -341,15 +341,15 @@ $(document).ready(function(){
 
         // Updates parkCode accordingly with the button clicked.
         parkCode = $(this).attr("data-name");
-        console.log(parkCode);
+        // console.log(parkCode);
 
         // Updates parkCode accordingly with the button clicked.
         parkState = $(this).attr("data-state");
-        console.log(parkState);
+        // console.log(parkState);
 
         // Grab button value to update the global variable parkCity.
         parkCity = $(this).val();
-        console.log(parkCity);
+        // console.log(parkCity);
 
         // Grab button text to update the global variable parkName.
         parkName = $(this).text();
@@ -392,7 +392,7 @@ $(document).ready(function(){
     
     // FFunction that looks for the forecast data.
     function forecast(url){
-        console.log(url);
+        // console.log(url);
         // AJAX call for the 5 days forecast.
         $.ajax({
             url: url,
