@@ -8,4 +8,4 @@ By selecting a state from the dropdown menu, a list of national parks located in
 [National Park]( https://jackparisi.github.io/Group-5-Project-1/)
 
 ## Visual Representation
-![National Park](add picture or video demo github link here)
+![National Park](https://github.com/jackparisi/Group-5-Project-1/blob/main/assets/image/liveSiteImage.PNG)
